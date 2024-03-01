@@ -1,0 +1,69 @@
+/*
+
+// Controll Register 
+
+// Inputs : i_CE,i_clk,i_d
+
+// outputs: o_q
+
+
+*/
+
+module CtrlReg(
+  
+  input i_clk,
+  input i_CE,
+  input i_d,
+  output reg o_q 
+ 
+);
+  always @(posedge i_clk)
+  begin
+    if(i_CE)
+     begin
+       o_q <= i_d; 
+     end
+    else 
+    begin
+      o_q  <= o_q; 
+    end
+  end
+
+endmodule
+ 
+
+///********** Simple Test Bench *******
+
+module tb_CtrlReg();
+  
+  reg i_clk;
+  reg i_CE;
+  reg i_d;
+  wire o_q;
+ 
+ CtrlReg dut (
+  . i_clk(i_clk),
+  . i_CE(i_CE),
+  . i_d(i_d),
+  . o_q(o_q) 
+ );
+  initial begin
+    i_clk=1'b0;
+  end
+  
+  always #5 i_clk=!i_clk;  
+  
+  initial begin
+    #10; 
+    i_d=1'b1;
+    #10;
+    i_CE=1'b1;
+    #10;
+    i_d=1'b0;
+    #10;
+    i_CE=1'b0;
+    #10;
+  end
+ 
+endmodule 
+
