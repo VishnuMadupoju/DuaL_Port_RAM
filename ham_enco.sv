@@ -40,7 +40,15 @@
 
    . i_data_in(i_data_in),
    . o_data_out(o_data_out),
+
   );
+   initial begin 
+  
+     #10;
+
+   
+
+   end
 
   
 
