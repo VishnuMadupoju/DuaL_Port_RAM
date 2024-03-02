@@ -24,7 +24,7 @@
   
    // Internal Register 
    reg [3:0] p;
-  always @(posedge i_clk)
+  always @(posedge clk)
   begin
     p[0]=i_data_in[0]^ i_data_in[1]^i_data_in[3]^i_data_in[4]^i_data_in[6];
     p[1]=i_data_in[0]^ i_data_in[2]^i_data_in[3]^i_data_in[5]^i_data_in[6];
@@ -52,10 +52,10 @@
    .i_clk(i_clk)
   );
 
-   initial begin
-     i_clk =1'b0; 
-   end
-   always #5 i_clk = !i_clk;
+  initial begin
+   i_clk =1'b0; 
+  end
+    always #5 i_clk = !i_clk;
 
    initial begin 
     i_data_in = 8'h11;
@@ -63,10 +63,6 @@
     i_data_in = 8'h12;
     #10;
     i_data_in = 8'h13;
-   end
-   initial begin
-     #500;
-     $finish();
    end
 
  endmodule

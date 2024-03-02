@@ -22,8 +22,15 @@ module ham_dec (
 
   reg [3:0] data_sy;
 
+  // Temperary reg 
+ //  reg    [11:0] t_data=12'b0;;
+
+
+   //reg   err_data_bit;
   always @(posedge i_clk)
   begin
+
+   // t_data = i_data;
 
     data_sy [0] =i_data[0]^ i_data[2]^i_data[4]^i_data[6]^i_data[8]^i_data[10];
   
@@ -39,11 +46,15 @@ module ham_dec (
   begin
   if (data_sy >= 'b1 )
   begin
-     case(data_sy)        //based on syndrome error is calculated    
+  /*  err_data_bit      <= !i_data[data_sy];
+    t_data[data_sy]   <=   err_data_bit;
+    o_data            <= {t_data[11:8],t_data[6:4],t_data[2]};
+   */
+     case(data_sy)//based on syndrome error is calculated    
                4'b0001:
-                 o_data<={i_data[11:8],i_data[6:4],i_data[2]};
+                 o_data={i_data[11:8],i_data[6:4],i_data[2]};
                4'b0010:
-                 o_data<={i_data[11:8],i_data[6:4],i_data[2]};
+                 o_data={i_data[11:8],i_data[6:4],i_data[2]};
                4'b0011:
                  o_data<={i_data[11:8],i_data[6:4],!i_data[2]};
                4'b0100:
@@ -64,7 +75,6 @@ module ham_dec (
                  o_data<={i_data[11],!i_data[10],i_data[9:8],i_data[6:4],i_data[2]};
                4'b1100:
               o_data<={!i_data[11],i_data[10:8],i_data[6:4],i_data[2]};
-     endcase
     
   end
   else 
@@ -109,5 +119,7 @@ module tb_ham_dec ();
 
   
 endmodule  
+
+
 
 
