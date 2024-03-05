@@ -41,6 +41,8 @@ module tb_dual # (parameter ADDR_WIDTH = 5 ,DATA_WIDTH =32, READ_LANTENCY =3 ,WR
    
  );
 
+  
+
   initial begin
     i_clka =1'b0;
     i_clkb =1'b0;
@@ -61,7 +63,7 @@ module tb_dual # (parameter ADDR_WIDTH = 5 ,DATA_WIDTH =32, READ_LANTENCY =3 ,WR
    i_wea =1'b0;
   end
  
-  initial begin  
+  /*initial begin  
    i_dinb= 8'h13;
    i_addrb= 3'b011;
    repeat(2) @( posedge (i_clkb));
@@ -71,6 +73,7 @@ module tb_dual # (parameter ADDR_WIDTH = 5 ,DATA_WIDTH =32, READ_LANTENCY =3 ,WR
    i_enb =1'b1;
    i_web =1'b0;
   end 
+ */
  
  initial begin
   # 500 ;
