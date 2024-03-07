@@ -70,7 +70,23 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
       end
     join 
   end 
+
+//  Functional Coverage Block 
+
+// Adding functional coverage 
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 // Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port a 
