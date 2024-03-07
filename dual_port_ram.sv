@@ -138,11 +138,12 @@ begin
   begin
     q_a_reg[i]          <= q_a_reg[i-1];
     q_a_reg_enable[i]   <= q_a_reg_enable[i-1] ;
-   q_a_reg_write [i]    <= q_a_reg_write [i-1] ;   
+    q_a_reg_write [i]    <= q_a_reg_write [i-1] ;   
 
 
   end
-    o_douta    <=  (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_douta ;
+    //o_douta    <=  (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_douta ;
+    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_doutb ;
 end
 
 

@@ -62,34 +62,42 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
     fork 
       begin 
         repeat(1000)
-        test_porta();
+        test_portb();
       end
       begin 
         repeat (1000)
-        test_portb();
+        test_porta();
       end
     join 
   end 
  
- 
+
+
 // Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port a 
  
   task  test_porta(); 
    i_dina= $urandom();
    i_addra=$urandom_range(0,17);     // Range is Randomized since the no of address loactions are fixed and  depend on the addrss width
-   repeat(1) @( posedge (i_clka));
+   repeat(4) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b1;
-   repeat(1) @( posedge (i_clka));
+   $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_addra ,i_dina, );
+   repeat(5) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b0;
-  repeat(1) @( posedge (i_clka));
+  // $display("Data Read from the memory is %0d",dut.o_douta );
+   repeat(5) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b1;
-   repeat(51) @( posedge (i_clka));
+   repeat(5) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b0;
-  
+   repeat(5) @( posedge (i_clka));
+   i_ena =1'b1;
+   i_wea =1'b0;
+    repeat(5) @( posedge (i_clka));
+    i_ena =1'b1;
+    i_wea =1'b1;
 
   endtask 
  
@@ -98,24 +106,34 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
    task test_portb();  
      i_dinb= $urandom();
      i_addrb= $urandom_range(0,17 ); // Range is Randomized since the no of address loactions are fixed and depend on the addrss width
-     repeat(2) @( posedge (i_clkb));
+     repeat(4) @( posedge (i_clkb));
      i_enb =1'b1;
      i_web =1'b1;
+     $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_dinb, i_addrb );
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b1;
      i_web =1'b0;
-    repeat(2) @( posedge (i_clkb));
-    i_ena =1'b0;
-    i_wea =1'b1;
-    repeat(5) @( posedge (i_clkb));
-    i_ena =1'b0;
-    i_wea =1'b0;
+    // $display("Data Read from the memory is %0d",dut.o_doutb );
+     repeat(5) @( posedge (i_clkb));
+     i_enb =1'b0;
+     i_web =1'b1;
+     repeat(5) @( posedge (i_clkb));
+     i_enb =1'b0;
+     i_web =1'b0;
+     repeat(5) @( posedge (i_clkb));
+     i_enb =1'b1;
+     i_web =1'b0;
+     repeat(5) @( posedge (i_clkb));
+     i_enb =1'b1;
+     i_web =1'b1;
 
+    
+   
  endtask 
  
  
  initial begin
-  # 500 ;
+  # 50000 ;
   $finish();
  end
 

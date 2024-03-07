@@ -1,0 +1,9 @@
+var g_data = {'dummy':{null},
+'/tb_dual_cverage/test_porta':{h:'57',s:1,z:1},
+'/tb_dual_cverage/test_portb':{h:'58',s:1,z:1},
+'work.dual_port_ram':{h:'3',s:1,b:1,t:1,z:1},
+'/tb_dual_cverage/dut':{h:'59',s:1,b:1,t:1,z:1},
+'/tb_dual_cverage':{h:'4',s:1,t:1,z:1},
+'work.tb_dual_cverage::test_porta':{h:'173',s:1,z:1},
+'work.tb_dual_cverage::test_portb':{h:'174',s:1,z:1},
+'work.tb_dual_cverage':{h:'2',s:1,t:1,z:1}};
