@@ -77,10 +77,13 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
   
   reg [1:0] q_b_reg_write  [WRITE_LATENCY-1:0];
 
- 
-  // Declaring the counter in order to write to the read signal 
 
-   
+
+ // Declaring A task to put you into the Read and write Enable Signals  
+
+    task error_injuction bit (input bit [11:0] din, input bit [2:0] addr);
+      mem [addr] = din;   
+    endtask 
    
   
  // logic  for the first port 
@@ -146,16 +149,16 @@ end
 
 //Logic for the second port B 
 
-    always @(posedge i_clka)
+    always @(posedge i_clkb)
   begin
     if(i_enb)
     begin
       if(i_web)
       begin
-         q_a_reg_addr  [0]   <= i_addrb;
-         q_a_reg_data  [0]   <= i_dinb;
-         q_a_reg_enable[0]   <= i_enb;
-         q_a_reg_write [0]   <= i_web;
+         q_b_reg_addr  [0]   <= i_addrb;
+         q_b_reg_data  [0]   <= i_dinb;
+         q_b_reg_enable[0]   <= i_enb;
+         q_b_reg_write [0]   <= i_web;
       end
       else
       begin

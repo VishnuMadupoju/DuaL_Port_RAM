@@ -77,10 +77,13 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
   
   reg [1:0] q_b_reg_write  [WRITE_LATENCY-1:0];
 
- 
-  // Declaring the counter in order to write to the read signal 
 
-   
+
+ // Declaring A task to put you into the Read and write Enable Signals  
+
+    /*task error_injuction  (input bit [11:0] din, input bit [2:0] addr);
+      mem [addr] = din;   
+    endtask */
    
   
  // logic  for the first port 

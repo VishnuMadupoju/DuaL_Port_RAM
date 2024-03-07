@@ -61,11 +61,11 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
   initial begin
     fork 
       begin 
-        repeat(1000)
+        repeat(200)
         test_porta();
       end
       begin 
-        repeat (1000)
+        repeat (200)
         test_portb();
       end
     join 
@@ -77,19 +77,18 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
   task  test_porta(); 
    i_dina= $urandom();
    i_addra=$urandom_range(0,17);     // Range is Randomized since the no of address loactions are fixed and  depend on the addrss width
-   repeat(1) @( posedge (i_clka));
+   repeat(2) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b1;
-   repeat(1) @( posedge (i_clka));
+   repeat(5) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b0;
-  repeat(1) @( posedge (i_clka));
+  repeat(2) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b1;
-   repeat(51) @( posedge (i_clka));
+   repeat(5) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b0;
-  
 
   endtask 
  

@@ -141,21 +141,19 @@ top_dram # (ADDR_WIDTH ,DATA_WIDTH , READ_LATENCY  ,WRITE_LATENCY ) top_1(
   always #5 i_clkb = !i_clkb;
 
   
-  initial begin            
+  initial begin 
+  // top_1.i_din_encoder=12'b101010101011;         //  Error Injuction of the data so as to test Wheather it is going to work or not
+   
+   i_dina = 8'b10101011;
+   i_addra= 3'b001;
    repeat(2) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b1;
-   i_dina = 8'b10101011;
-   i_addra= 3'b001;
+   repeat (2) @(posedge (i_clka));
+    top_1.error_injuction(12'b101001011111,i_addra);
    repeat(5) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b0;
-   repeat (6) @(posedge (i_clka));
-   top_1.DRAM.error_injuction(12'b101001011110,i_addra);// //  Error Injuction of the data so as to test Wheather it is going to work or not 
-   repeat(5) @( posedge (i_clka));
-   i_ena =1'b1;
-   i_wea =1'b0;
-  
   end
  
   /*initial begin  
