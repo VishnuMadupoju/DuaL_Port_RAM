@@ -27,7 +27,7 @@
 
   1. Read and Write Latency  operation is produced by using the Parametarized Shift Registers in this Code
   
-  2. Internal registers are used to pipeline the data and handle the read and write latencies. 
+  2. Internal registers are used to pipeline the data and handle the read and write latencies 
  
 */
 

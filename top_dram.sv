@@ -16,7 +16,7 @@
   -------------- General operation-----------
 
      --> The data is sent from the Hamming Encoder so it was written in the Some memory location in Dual port Ram
-     --> Where as the hamming Decoder will Decode the Data by reading the data from that memory Location and by correcting one bit memory Error
+     --> Where as the hamming Decoder will Decode the Data by reading the data from that memory Location and by correcting one bit memory Error.
 
 
 */
