@@ -1,0 +1,70 @@
+var g_data = {
+b3:[{dummy:0},
+{anchor:'cvg60',items:[{z:'    if(i_ena)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'93',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    if(i_ena)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'93',h:'1783',c:'g'}
+,{cr:'c',t:'E',z:'    else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'109',h:'1035',c:'g'}
+]},
+{anchor:'cvg61',items:[{z:'      if(i_wea)                          ',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'95',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      if(i_wea)                          ',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'95',h:'748',c:'g'}
+,{cr:'c',t:'E',z:'      else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'102',h:'1035',c:'g'}
+]},
+{anchor:'cvg62',items:[{z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',h:'587',c:'g'}
+,{cr:'c',t:'E',z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',h:'1377',c:'g'}
+]},
+{anchor:'cvg63',items:[{z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',h:'1018',c:'g'}
+,{cr:'c',t:'E',z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',h:'1348',c:'g'}
+]},
+{anchor:'cvg64',items:[{z:'    if(i_enb)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'155',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    if(i_enb)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'155',h:'1783',c:'g'}
+,{cr:'c',t:'E',z:'    else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'171',h:'1035',c:'g'}
+]},
+{anchor:'cvg65',items:[{z:'      if(i_web)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'157',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      if(i_web)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'157',h:'748',c:'g'}
+,{cr:'c',t:'E',z:'      else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'164',h:'1035',c:'g'}
+]},
+{anchor:'cvg66',items:[{z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',h:'587',c:'g'}
+,{cr:'c',t:'E',z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',h:'1377',c:'g'}
+]},
+{anchor:'cvg67',items:[{z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',h:'861',c:'g'}
+,{cr:'c',t:'E',z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',h:'1034',c:'g'}
+]}],
+b59:[{dummy:0},
+{anchor:'cvg60',items:[{z:'    if(i_ena)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'93',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    if(i_ena)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'93',h:'1783',c:'g'}
+,{cr:'c',t:'E',z:'    else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'109',h:'1035',c:'g'}
+]},
+{anchor:'cvg61',items:[{z:'      if(i_wea)                          ',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'95',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      if(i_wea)                          ',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'95',h:'748',c:'g'}
+,{cr:'c',t:'E',z:'      else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'102',h:'1035',c:'g'}
+]},
+{anchor:'cvg62',items:[{z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',h:'587',c:'g'}
+,{cr:'c',t:'E',z:'      mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'127',h:'1377',c:'g'}
+]},
+{anchor:'cvg63',items:[{z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',h:'1018',c:'g'}
+,{cr:'c',t:'E',z:'    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1\'b1 && q_a_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'146',h:'1348',c:'g'}
+]},
+{anchor:'cvg64',items:[{z:'    if(i_enb)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'155',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    if(i_enb)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'155',h:'1783',c:'g'}
+,{cr:'c',t:'E',z:'    else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'171',h:'1035',c:'g'}
+]},
+{anchor:'cvg65',items:[{z:'      if(i_web)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'157',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      if(i_web)',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'157',h:'748',c:'g'}
+,{cr:'c',t:'E',z:'      else',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'164',h:'1035',c:'g'}
+]},
+{anchor:'cvg66',items:[{z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',h:'587',c:'g'}
+,{cr:'c',t:'E',z:'      mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATE...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'190',h:'1377',c:'g'}
+]},
+{anchor:'cvg67',items:[{z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',c:'G',p:'100.00'}
+,{cr:'c',t:'I',z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',h:'861',c:'g'}
+,{cr:'c',t:'E',z:'    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1\'b1 && q_b_reg_write[...',hf:'__HDL_srcfile_2.htm',f:'D:/Vaaluka/Task_6/dual_port_ram.sv',l:'207',h:'1034',c:'g'}
+]}],
+dummyEnd:0
+};
+processBranchesData(g_data);

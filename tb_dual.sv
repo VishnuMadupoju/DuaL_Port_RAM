@@ -48,7 +48,10 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
   . o_doutb(o_doutb)
    
  );
-  
+
+ //--------------CLOCKING BLOCK ---------------------------------  
+
+
   initial begin
     i_clka =1'b0;
     i_clkb =1'b0;
@@ -57,95 +60,163 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
 
   always #5 i_clkb = !i_clkb;
 
-// Main module that contains and test 
+//-----------------MAIN INILIZATION BLOCK ------------------------ 
+
+
   initial begin
     fork 
       begin 
-        repeat(1000)
+        repeat(256)
         test_portb();
+         
       end
       begin 
-        repeat (1000)
+        repeat (256)
         test_porta();
-      end
+      end 
     join 
   end 
 
-//  Functional Coverage Block 
+//------------------ FUNCTIONAL COVERAGE BLOCK  --------------------------------------------------------
 
-// Adding functional coverage 
-
-
+// Adding functional coverage and the Cover group to the both the a and  b ports 
  
+  covergroup  dual_port;// @(posedge i_clka);
+    
+    option.per_instance= 1;
 
+    coverpoint  i_dina {
+      bins din_a_range_0_to_49     ={[0:49]};
+      bins din_a_range_50_to_99   ={[50:99]};
+      bins din_a_range_100_to_149  ={[100:149]};
+      bins din_a_range_150_to_199  ={[150:199]}; 
+      bins din_a_range_200_to_255  ={[200:255]};
 
+      }
+    coverpoint  i_dinb{
+      bins din_b_range_0_to_49     ={[0:49]};
+      bins din_b_range_50_to_99   ={[50:99]};
+      bins din_b_range_100_to_149  ={[100:149]};
+      bins din_b_range_150_to_199  ={[150:199]}; 
+      bins din_b_range_200_to_255  ={[200:255]};
 
+      }
+    coverpoint  o_douta {
+      bins dout_a_range_0_to_49     ={[0:49]};
+      bins dout_a_range_50_to_99   ={[50:99]};
+      bins dout_a_range_100_to_149  ={[100:149]};
+      bins dout_a_range_150_to_199  ={[150:199]}; 
+      bins dout_a_range_200_to_255  ={[200:255]};
 
+      }
+     coverpoint  o_doutb {
+      bins dout_b_range_0_to_49     ={[0:49]};
+      bins dout_b_range_50_to_99   ={[50:99]};
+      bins dout_b_range_100_to_149  ={[100:149]};
+      bins dout_b_range_150_to_199  ={[150:199]}; 
+      bins dout_b_range_200_to_255  ={[200:255]};
+    }
 
+    coverpoint i_addra {
 
+      bins a_address_range[] =  {[0:15]};
+      } 
+    coverpoint i_addrb {
+      bins b_address_range[] =  {[0:15]};
+      } 
+    coverpoint i_ena {
+      bins en_a  []    = {[0:1]};   
+      }
+    coverpoint i_enb {
+      bins en_b  []    = {[0:1]};   
+      }
+    coverpoint i_wea {
+      bins we_a  []    = {[0:1]};   
+      }
+    coverpoint i_web {
+      bins we_b  []    = {[0:1]};   
 
+       }
+   we_bXout_b: cross i_web ,o_doutb ;
 
+   we_aXout_a: cross i_wea ,o_douta;
+    
+  endgroup
+ 
+// Initialization of the constructor of the Functional Block 
 
+   dual_port d =new();
 
+    
+
+//--------------TASK BLOCK OF THE TEST BENCH TO EVALVATE THE SET OF SEQUENCE FOR THE A & B PORTS--------------------
 
 
 // Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port a 
  
   task  test_porta(); 
    i_dina= $urandom();
-   i_addra=$urandom_range(0,17);     // Range is Randomized since the no of address loactions are fixed and  depend on the addrss width
+   i_addra=$urandom_range(0,17);     // Range is Randomized since the no of address loactions are fixed and  depend on the addrss width 
+   d.sample();
    repeat(4) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b1;
-   $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_addra ,i_dina, );
+   d.sample();
+
+   //$display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_addra ,i_dina, );
    repeat(5) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b0;
+   d.sample();
   // $display("Data Read from the memory is %0d",dut.o_douta );
    repeat(5) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b1;
+   d.sample();
    repeat(5) @( posedge (i_clka));
    i_ena =1'b0;
    i_wea =1'b0;
+   d.sample();
    repeat(5) @( posedge (i_clka));
    i_ena =1'b1;
    i_wea =1'b0;
     repeat(5) @( posedge (i_clka));
     i_ena =1'b1;
     i_wea =1'b1;
-
-  endtask 
+                   
+   endtask 
  
 // Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port b 
 
    task test_portb();  
      i_dinb= $urandom();
-     i_addrb= $urandom_range(0,17 ); // Range is Randomized since the no of address loactions are fixed and depend on the addrss width
+     i_addrb= $urandom_range(0,17 );// Range is Randomized since the no of address loactions are fixed and depend on the addrss width
+   //  d.sample(); 
      repeat(4) @( posedge (i_clkb));
      i_enb =1'b1;
      i_web =1'b1;
-     $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_dinb, i_addrb );
+     d.sample();
+  //   $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_dinb, i_addrb );
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b1;
-     i_web =1'b0;
-    // $display("Data Read from the memory is %0d",dut.o_doutb );
+     i_web =1'b0; 
+  // $display("Data Read from the memory is %0d",dut.o_doutb );
+     d.sample();
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b0;
      i_web =1'b1;
+     d.sample();
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b0;
      i_web =1'b0;
+     d.sample();
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b1;
      i_web =1'b0;
      repeat(5) @( posedge (i_clkb));
      i_enb =1'b1;
      i_web =1'b1;
-
-    
-   
- endtask 
+   endtask 
  
  
  initial begin

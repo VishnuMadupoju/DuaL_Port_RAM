@@ -142,7 +142,6 @@ begin
 
 
   end
-    //o_douta    <=  (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_douta ;
     o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_doutb ;
 end
 

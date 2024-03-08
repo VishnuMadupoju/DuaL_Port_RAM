@@ -1,0 +1,58 @@
+Coverage Report Summary Data by file
+
+=================================================================================
+=== File: D:/Vaaluka/Task_6/dual_port_ram.sv
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           50        50         0     100.0
+    Branches                        16        16         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    Toggle Bins                     92        92         0     100.0
+
+=================================================================================
+=== File: D:/Vaaluka/Task_6/tb_dual.sv
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           74        74         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    Toggle Bins                     92        92         0     100.0
+
+
+TOTAL COVERGROUP COVERAGE: 100.0%  COVERGROUP TYPES: 1
+
+Total Coverage By File (code coverage only, filtered view): 100.0%
+
+Coverage Report Summary Data by file
+
+=================================================================================
+=== File: D:/Vaaluka/Task_6/dual_port_ram.sv
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           50        50         0     100.0
+    Branches                        16        16         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    Toggle Bins                     92        92         0     100.0
+
+=================================================================================
+=== File: D:/Vaaluka/Task_6/tb_dual.sv
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           74        74         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    Toggle Bins                     92        92         0     100.0
+
+
+TOTAL COVERGROUP COVERAGE: 100.0%  COVERGROUP TYPES: 1
+
+Total Coverage By File (code coverage only, filtered view): 100.0%
+
