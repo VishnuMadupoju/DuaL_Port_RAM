@@ -1,6 +1,6 @@
 ///
 //
-// ---------------------MULTI BANK MEMORY DESIGN--------------------
+// ---------------------MULTI BANK MEMORY DESIGN---------------------
 //       
 //    Inputs  :   1 set --> Parameterized bit i_dina, Parameterized bit i_addra, i_ena, i_wea
 //                2 set --> Parameterized bit i_dinb, Parameterized bit i_addrb, i_enb, i_web
