@@ -27,7 +27,9 @@
 
   1. Read and Write Latency  operation is produced by using the Parametarized Shift Registers in this Code
   
-  2. Internal registers are used to pipeline the data and handle the read and write latencies 
+  2. Internal registers are used to pipeline the data and handle the read and write latencies
+
+      ----------------------Version 0.5-------------------------
  
 */
 
@@ -155,14 +157,14 @@ end
     begin
       if(i_web)
       begin
-         q_b_reg_addr  [0]   <= i_addrb;
+         q_b_reg_addr  [0]   <= i_addrb;//   Capturing Address, Data, and Enable/Write Signals for Write Operation for the port B
          q_b_reg_data  [0]   <= i_dinb;
          q_b_reg_enable[0]   <= i_enb;
          q_b_reg_write [0]   <= i_web;
       end
       else
       begin
-        q_b_reg[0]          <=  mem[i_addrb];
+        q_b_reg[0]          <=  mem[i_addrb];//   Capturing  Data, and Enable/Write Signals for Read Operation for the port B
         q_b_reg_enable[0]   <= i_enb;
         q_b_reg_write [0]   <= i_web;
       end 

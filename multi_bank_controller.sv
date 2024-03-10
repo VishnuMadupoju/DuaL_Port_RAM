@@ -1,6 +1,6 @@
 ///
 //
-// ---------------------MULTI BANK MEMORY DESIGN---------------------
+// ---------------------MULTI BANK MEMORY DESIGN--------------------
 //       
 //    Inputs  :   1 set --> Parameterized bit i_dina, Parameterized bit i_addra, i_ena, i_wea
 //                2 set --> Parameterized bit i_dinb, Parameterized bit i_addrb, i_enb, i_web
@@ -36,7 +36,7 @@
 //       
 //      2. It Gives the size that was needed to create the memory that was Required 
 //
-//  -------------------- Version  0.5------------------------------------
+//  ------------------------   Version  0.5  -----------------------------------
 //
 //
 
@@ -65,6 +65,12 @@
  reg  [3:0] i_enb_reg ;
  reg  [3:0] i_web_reg ;
 
+ // Declaring the reg internally for the ports that has to be assigned to the outputs to the Wire type
+
+ wire [3:0]  o_douta_wire;
+ 
+ wire [3:0]  o_doutb_wire;
+
 
 //----------------------REPLECATION GENERATION BLOCK----------------------------
 
@@ -76,9 +82,9 @@
 
    generate 
 
-     for (g=0 ; g <BANK_NO;g=g+1 )
-      begin
-          dual_port_ram # ( ADDR_WIDTH -2 ,DATA_WIDTH , READ_LATENCY ,WRITE_LATENCY  ) dut (
+     for (g=0 ; g <4;g=g+1 )
+      begin:RAM_GEN
+          dual_port_ram # ( ADDR_WIDTH -2 ,DATA_WIDTH , READ_LATENCY ,WRITE_LATENCY  ) Dual_Ram (
          
            .i_dina(i_dina),
            .i_addra(i_addra[ADDR_WIDTH-3:0]),
@@ -90,14 +96,14 @@
            .i_enb(i_enb_reg[g]),
            .i_clkb(i_clkb),
            .i_web(i_web_reg [g]),
-           .o_douta(o_douta),
-           .o_doutb (o_doutb)
+           .o_douta(o_douta_wire[g]),
+           .o_doutb (o_doutb_wire[g])
            
          );
       end  
   endgenerate
 
-// ---------------- BANK ROUTING  BLOCK -----------------
+// ---------------- BANK ROUTING  BLOCK [DECODER] -----------------
    
      enum bit [1:0]{Bank0,Bank1,Bank2,Bank3} Bank_no ;
 
@@ -109,18 +115,23 @@
         Bank0: begin
                  i_ena_reg[0] =i_ena; // When the 12 and 11 bit of addres a  is 00 it routes to the Bank0 memory of the address port a  
                  i_wea_reg[0] =i_wea;
+				 o_douta      =o_douta_wire[0];
                end
         Bank1: begin
                  i_ena_reg[1] =i_ena;
                  i_wea_reg[1] =i_wea;
+                 o_douta      =o_douta_wire[1];
                end
         Bank2: begin
                  i_ena_reg[2] =i_ena;
                  i_wea_reg[2] =i_wea;
+				 o_douta      =o_douta_wire[2];
                end
         Bank3: begin
                  i_ena_reg[3] =i_ena;
                  i_wea_reg[3] =i_wea;
+				 o_douta      =o_douta_wire[3];
+
                end
      endcase
    end
@@ -132,29 +143,29 @@
    begin
      case({i_addrb[ADDR_WIDTH-1], i_addrb[ADDR_WIDTH-2]} )// It will check the 12 and 11 bits of the given Port B Address
         Bank0: begin
-                 i_enb_reg[0] =i_enb; // When the 12 and 11 bit of addres a  is 00 it routes to the Bank0 memory of the address port a  
+                 i_enb_reg[0] =i_enb; // When the 12 and 11 bit of addres a  is 00 it routes to the Bank0 memory of the address port b 
                  i_web_reg[0] =i_web;
+				 o_doutb      = o_doutb_wire[0];
                end        
         Bank1: begin      
                  i_enb_reg[1] =i_enb;
                  i_web_reg[1] =i_web;
+				 o_doutb      = o_doutb_wire[1];
                end        
         Bank2: begin      
                  i_enb_reg[2] =i_enb;
                  i_web_reg[2] =i_web;
+				 o_doutb      = o_doutb_wire[2];
                end        
         Bank3: begin      
                  i_enb_reg[3] =i_enb;
                  i_web_reg[3] =i_web;
+				 o_doutb      =o_doutb_wire[3];
+
                end
      endcase
-   end
-    
+   end    
  endmodule
-
-
-
-
 
 
 
@@ -163,7 +174,7 @@
 
 //--------------------MODULE BASED TEST BENCH ---------------------------
 
-module tb_ multi_bank_controller #(parameter ADDR_WIDTH = 12 ,DATA_WIDTH =8, READ_LATENCY =3 ,WRITE_LATENCY =3, BANK_NO=4 )() ;
+module tb_multi_bank_controller #(parameter ADDR_WIDTH = 12 ,DATA_WIDTH =8, READ_LATENCY =3 ,WRITE_LATENCY =3, BANK_NO=4 )() ;
 
    reg         [DATA_WIDTH-1:0] i_dina;
    reg         [ADDR_WIDTH-1:0] i_addra;
@@ -193,5 +204,69 @@ module tb_ multi_bank_controller #(parameter ADDR_WIDTH = 12 ,DATA_WIDTH =8, REA
    .o_douta(o_douta),
    .o_doutb(o_doutb)
                          );
+
+
+ // -----------CLOCKING INITLIZATION AND GENERATION BLOCK-----------------------
+
+   initial begin
+     i_clka=1'b0;
+	 i_clkb=1'b0;
+   end
+   always #5 i_clka= !i_clka;
+
+   always #5 i_clkb=!i_clkb;
+
+
+
+   initial begin
+     test_porta();
+	 #30;
+     test_portb(); 
+   end
+
+
+
+
+//--------------TASK BLOCK OF THE TEST BENCH TO EVALVATE THE SET OF SEQUENCE FOR THE A & B PORTS--------------------
+
+
+// Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port a 
+ 
+  task  test_porta(); 
+   i_dina= $urandom();
+   i_addra=$urandom_range(0,4096);     // Range is Randomized since the no of address loactions are fixed and  depend on the addrss width 
+   repeat(4) @( posedge (i_clka));
+   i_ena =1'b1;
+   i_wea =1'b1;
+
+   //$display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_addra ,i_dina, );
+   repeat(5) @( posedge (i_clka));
+   i_ena =1'b1;
+   i_wea =1'b0;
+  // $display("Data Read from the memory is %0d",dut.o_douta );  
+   endtask 
+ 
+// Declared the task to generate teh Random stimuls and give it to the random adderss and data  of the port b 
+
+   task test_portb();  
+     i_dinb= $urandom();
+     i_addrb= $urandom_range(0,4096 );// Range is Randomized since the no of address loactions are fixed and depend on the addrss width
+     repeat(4) @( posedge (i_clkb));
+     i_enb =1'b1;
+     i_web =1'b1;
+   //   $display("Data Written into the memory of the adders[=%0d] and data[=%0d] ",i_dinb, i_addrb );
+     repeat(5) @( posedge (i_clkb));
+     i_enb =1'b1;
+     i_web =1'b0; 
+  // $display("Data Read from the memory is %0d",dut.o_doutb );
+     endtask 
+ 
+ 
+ initial begin
+  # 500 ;
+  $finish();
+ end
+
+
 
  endmodule
