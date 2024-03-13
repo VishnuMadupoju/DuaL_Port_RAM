@@ -27,7 +27,9 @@
 
   1. Read and Write Latency  operation is produced by using the Parametarized Shift Registers in this Code
   
-  2. Internal registers are used to pipeline the data and handle the read and write latencies 
+  2. Internal registers are used to pipeline the data and handle the read and write latencies
+
+      ----------------------Version 0.5-------------------------
  
 */
 
@@ -57,7 +59,7 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
 
   reg [DATA_WIDTH-1:0] q_a_reg [READ_LATENCY-1:0]; 
 
-  reg [DATA_WIDTH-1:0] q_a_reg_addr [WRITE_LATENCY-1:0]; 
+  reg [ADDR_WIDTH-1:0] q_a_reg_addr [WRITE_LATENCY-1:0]; 
   
   reg [DATA_WIDTH-1:0] q_a_reg_data [WRITE_LATENCY-1:0]; 
    
@@ -65,17 +67,26 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
   
   reg [1:0] q_a_reg_write  [WRITE_LATENCY-1:0];
 
+  reg [1:0] q_a_reg_enable_read [READ_LATENCY-1:0];
+  
+  reg [1:0] q_a_reg_write_read  [READ_LATENCY-1:0];
+
  // Declaring internal register for B to create the delay for the read and write latency
 
   reg [DATA_WIDTH-1:0] q_b_reg [READ_LATENCY-1:0]; 
 
-  reg [DATA_WIDTH-1:0] q_b_reg_addr [WRITE_LATENCY-1:0]; 
+  reg [ADDR_WIDTH-1:0] q_b_reg_addr [WRITE_LATENCY-1:0]; 
   
   reg [DATA_WIDTH-1:0] q_b_reg_data [WRITE_LATENCY-1:0]; 
    
   reg [1:0] q_b_reg_enable [WRITE_LATENCY-1:0];
   
   reg [1:0] q_b_reg_write  [WRITE_LATENCY-1:0];
+
+   reg [1:0] q_b_reg_enable_read [READ_LATENCY-1:0];
+  
+  reg [1:0] q_b_reg_write_read  [READ_LATENCY-1:0];
+
 
 
 
@@ -101,9 +112,9 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
       end
       else
       begin
-        q_a_reg[0]          <=  mem[i_addra];//   Capturing  Data, and Enable/Write Signals for Read Operation
-        q_a_reg_enable[0]   <= i_ena;
-        q_a_reg_write [0]   <= i_wea;
+        q_a_reg[0]                <=  mem[i_addra];//   Capturing  Data, and Enable/Write Signals for Read Operation
+        q_a_reg_enable_read [0]   <= i_ena;
+        q_a_reg_write_read [0]    <= i_wea;
       end 
     end
     else
@@ -137,12 +148,12 @@ begin
   for (int i = 1; i < READ_LATENCY-1; i++)
   begin
     q_a_reg[i]          <= q_a_reg[i-1];
-    q_a_reg_enable[i]   <= q_a_reg_enable[i-1] ;
-    q_a_reg_write [i]    <= q_a_reg_write [i-1] ;   
+    q_a_reg_enable_read[i]   <= q_a_reg_enable_read[i-1] ;
+    q_a_reg_write_read [i]   <= q_a_reg_write_read [i-1] ;   
 
 
   end
-    o_douta    <= (q_a_reg_enable[READ_LATENCY-2]==1'b1 && q_a_reg_write[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_doutb ;
+    o_douta    <= (q_a_reg_enable_read[READ_LATENCY-2]==1'b1 && q_a_reg_write_read[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_douta ;
 end
 
 
@@ -155,16 +166,16 @@ end
     begin
       if(i_web)
       begin
-         q_b_reg_addr  [0]   <= i_addrb;
+         q_b_reg_addr  [0]   <= i_addrb;//   Capturing Address, Data, and Enable/Write Signals for Write Operation for the port B
          q_b_reg_data  [0]   <= i_dinb;
          q_b_reg_enable[0]   <= i_enb;
          q_b_reg_write [0]   <= i_web;
       end
       else
       begin
-        q_b_reg[0]          <=  mem[i_addrb];
-        q_b_reg_enable[0]   <= i_enb;
-        q_b_reg_write [0]   <= i_web;
+        q_b_reg[0]          <=  mem[i_addrb];//   Capturing  Data, and Enable/Write Signals for Read Operation for the port B
+        q_b_reg_enable_read[0]   <= i_enb;
+        q_b_reg_write_read [0]   <= i_web;
       end 
     end
     else
@@ -199,11 +210,11 @@ begin
   for (int i = 1; i < READ_LATENCY-1; i++)
   begin
     q_b_reg[i]          <= q_b_reg[i-1];
-    q_b_reg_enable[i]   <= q_b_reg_enable[i-1] ;
-    q_b_reg_write [i]   <= q_b_reg_write [i-1] ;   
+    q_b_reg_enable_read[i]   <= q_b_reg_enable_read[i-1] ;
+    q_b_reg_write_read [i]   <= q_b_reg_write_read [i-1] ;   
 
   end
-    o_doutb    <= (q_b_reg_enable[READ_LATENCY-2]==1'b1 && q_b_reg_write[READ_LATENCY-2]==1'b0 )? q_b_reg[READ_LATENCY-2] :o_doutb ;
+    o_doutb    <= (q_b_reg_enable_read [READ_LATENCY-2]==1'b1 && q_b_reg_write_read [READ_LATENCY-2]==1'b0 )? q_b_reg[READ_LATENCY-2] :o_doutb ;
 end
 
 
