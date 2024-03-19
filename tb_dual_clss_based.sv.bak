@@ -55,16 +55,16 @@ import dual_ram::*;
 //class members will no thave directions as they are not ports but they are members
 class transction ;
 
-  rand  bit   [DATA_WIDTH-1:0] i_dina;
-  rand  bit   [ADDR_WIDTH-1:0] i_addra;
-  rand  bit                    i_ena;
-  rand  bit                    i_wea;
-  rand  bit   [DATA_WIDTH-1:0] i_dinb;
-  rand  bit   [ADDR_WIDTH-1:0] i_addrb;
-  rand  bit                    i_enb; 
-  rand  bit                    i_web;
+  rand  bit [DATA_WIDTH-1:0] i_dina;
+  rand  bit [ADDR_WIDTH-1:0] i_addra;
+  rand  bit                  i_ena;
+  rand  bit                  i_wea;
+  rand  bit [DATA_WIDTH-1:0] i_dinb;
+  rand  bit [ADDR_WIDTH-1:0] i_addrb;
+  rand  bit                  i_enb; 
+  rand  bit                  i_web;
         logic [DATA_WIDTH-1:0] o_douta;
-        logic [DATA_WIDTH-1:0] o_doutb;
+        logic[DATA_WIDTH-1:0] o_doutb;
    
     function transction copy();
       copy=new();
@@ -107,7 +107,7 @@ class generator;
 
   task run();
 	t=new();
-    for (int i=0;i<100;i++)
+    for (int i=0;i<30;i++)
 	begin
 	  t.randomize();
 	  mbx.put(t);

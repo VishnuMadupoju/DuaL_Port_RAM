@@ -17,7 +17,7 @@
 
 
 
-module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY =3 ,WRITE_LANTENCY =3 )();
+module tb_dual_cverage_getmethod # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY =3 ,WRITE_LANTENCY =3 )();
  
   reg        [DATA_WIDTH-1:0] i_dina;
   reg        [ADDR_WIDTH-1:0] i_addra;
@@ -169,8 +169,8 @@ module tb_dual_cverage # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY
      i_addrb= $urandom_range(0,17 );// Range is Randomized since the no of address loactions are fixed and depend on the addrss width
     @(posedge i_clkb);
      i_enb =$uradom_range(0,1);
-     i_web =$uradom_range(0,1);
-	 $display("Values of the i_en= %0d and i_we=%0d",i_enb,web);
+     i_web =$uradom_range(0,2);
+	 $display("Values of the i_en= %0d and i_we=%0d",i_enb,i_web);
     @(posedge i_clkb);
     endtask
  

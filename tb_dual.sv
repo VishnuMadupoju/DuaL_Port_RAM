@@ -17,7 +17,7 @@
 
 
 
-module tb_dual_cverage_getmethod # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY =3 ,WRITE_LANTENCY =3 )();
+module tb_dual_cverage_upgraded # (parameter ADDR_WIDTH = 4 ,DATA_WIDTH =8, READ_LANTENCY =3 ,WRITE_LANTENCY =3 )();
  
   reg        [DATA_WIDTH-1:0] i_dina;
   reg        [ADDR_WIDTH-1:0] i_addra;

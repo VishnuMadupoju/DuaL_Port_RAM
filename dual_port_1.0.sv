@@ -1,4 +1,4 @@
-//
+
 //
 //       ******************* Dual Port RAM ********************
 //
@@ -29,11 +29,11 @@
 //  
 //  2. Internal registers are used to pipeline the data and handle the read and write latencies
 //
-//      ----------------------Version 0.5-------------------------
+//      ----------------------Version 1.0-------------------------
 // 
 //
 
-module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1 ,WRITE_LATENCY =1 )(
+module dual_port_ram_10# (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1 ,WRITE_LATENCY =1 )(
  
   input         [DATA_WIDTH-1:0] i_dina,
   input         [ADDR_WIDTH-1:0] i_addra,
@@ -128,6 +128,12 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
 
   always @( posedge i_clka ) 
   begin
+    if(WRITE_LATENCY == 1'b1)
+	begin
+	  mem[i_addra] <= (i_wea==1'b1 & i_ena ==1'b1)?i_dina:mem[i_addra];
+	 end
+	else
+	begin
     for (int i = 1; i < WRITE_LATENCY-1; i++)
     begin
       q_a_reg_addr[i]     <= q_a_reg_addr[i-1];
@@ -137,6 +143,7 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
     end
       mem [ q_a_reg_addr[WRITE_LATENCY-2] ] <= (q_a_reg_enable[WRITE_LATENCY-2]==1'b1 && q_a_reg_write[WRITE_LATENCY-2]==1'b1 )? q_a_reg_data[WRITE_LATENCY-2]: mem [ q_a_reg_addr[WRITE_LATENCY-2] ];   
   end
+  end
 
 
   
@@ -144,7 +151,12 @@ module dual_port_ram # (parameter ADDR_WIDTH = 3 ,DATA_WIDTH =8, READ_LATENCY =1
 // Port A read logic with the added Latency by by using parameterized Shift registers
 
 always @( posedge i_clka ) 
-begin 
+begin
+  if(READ_LATENCY ==1'b1)
+  begin
+    o_douta    <= (i_wea==1'b0 & i_ena ==1'b1)? mem[i_addra]:o_douta;
+  end
+  else begin
   for (int i = 1; i < READ_LATENCY-1; i++)
   begin
     q_a_reg[i]          <= q_a_reg[i-1];
@@ -154,6 +166,7 @@ begin
 
   end
     o_douta    <= (q_a_reg_enable_read[READ_LATENCY-2]==1'b1 && q_a_reg_write_read[READ_LATENCY-2]==1'b0 )? q_a_reg[READ_LATENCY-2] :o_douta ;
+end
 end
 
 
@@ -190,6 +203,11 @@ end
 
   always @( posedge i_clkb ) 
   begin
+    if(WRITE_LATENCY ==1'b1)
+	begin
+	  mem[i_addrb]  <= (i_web==1'b1 & i_enb ==1'b1)?i_dinb:mem[i_addrb];
+	 end
+	else begin
     for (int i = 1; i < WRITE_LATENCY-1; i++)
     begin
       q_b_reg_addr[i]     <= q_b_reg_addr[i-1];
@@ -198,7 +216,8 @@ end
       q_b_reg_write [i]   <= q_b_reg_write [i-1] ;   
     end
       mem [ q_b_reg_addr[WRITE_LATENCY-2] ] <= (q_b_reg_enable[WRITE_LATENCY-2]==1'b1 && q_b_reg_write[WRITE_LATENCY-2]==1'b1 )? q_b_reg_data[WRITE_LATENCY-2]: mem [ q_b_reg_addr[WRITE_LATENCY-2] ];   
-  end
+     end
+    end
 
 
   
@@ -207,6 +226,11 @@ end
 
   always @( posedge i_clkb ) 
   begin 
+    if(READ_LATENCY ==1'b1)
+	begin
+	  o_doutb    <= (i_web==1'b0 & i_enb ==1'b1)? mem[i_addrb]:o_doutb;
+	end
+	else begin
     for (int i = 1; i < READ_LATENCY-1; i++)
     begin
       q_b_reg[i]          <= q_b_reg[i-1];
@@ -216,14 +240,7 @@ end
     end
       o_doutb    <= (q_b_reg_enable_read [READ_LATENCY-2]==1'b1 && q_b_reg_write_read [READ_LATENCY-2]==1'b0 )? q_b_reg[READ_LATENCY-2] :o_doutb ;
   end
+  end
   
 
 endmodule
-
-
-  
-
-
-
-
-
