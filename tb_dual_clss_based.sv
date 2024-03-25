@@ -15,7 +15,7 @@
  
  package dual_ram;
   
-   parameter DATA_WIDTH = 8, ADDR_WIDTH =3,READ_LATENCY =4, WRITE_LATENCY =5,TIME_PERIOD=10;
+   parameter DATA_WIDTH = 8, ADDR_WIDTH =3,READ_LATENCY =1, WRITE_LATENCY =1,TIME_PERIOD=10;
 
  endpackage
 
@@ -29,7 +29,7 @@ import dual_ram::*;
 // It connects the signal based components to class based components
 // It sits between the driver and dut as well as the dut and monitor 
 
- interface dual_inf ();
+/* interface dual_inf ();
  
    logic  [DATA_WIDTH-1:0] i_dina;
    logic  [ADDR_WIDTH-1:0] i_addra;
@@ -44,7 +44,7 @@ import dual_ram::*;
    logic  [DATA_WIDTH-1:0] o_douta;
    logic  [DATA_WIDTH-1:0] o_doutb;
 
- endinterface 
+ endinterface */
 
 
 // Transaction Class  which is resposible for the greneration of the Rendom stimuls responsible for the driving the inputs for the DUT
@@ -156,7 +156,7 @@ class  drivers;
 //	   $display("[DRV] :Value recieved form the Randoamized Value are i_enb:%0d ,i_web: %0d" ,t.i_enb, t.i_web); 
       $display("[DRV]:Triggered Interface"); 
 	  ->done;
-	  repeat(4) @(posedge vif.i_clka);
+	  repeat(1) @(posedge vif.i_clka);
 	 // #20;
 	end
   endtask 
@@ -191,7 +191,7 @@ class monitor ;
 	  mbx.put(t);
 	$display("[MON]: Data sent to score board ");
 	// $display ("[MON]: Values to the ScoreBoard are i_dina:%0d  ,o_douta =%0d ,o_doutb = %0d ",vif.i_dina,vif.o_douta, vif.o_doutb  );
-	  repeat (4) @ (posedge vif.i_clka);
+	  repeat (1) @ (posedge vif.i_clka);
 	  end
   endtask 
 endclass
@@ -212,12 +212,18 @@ class scoreboard;
     t=new();
 	forever begin
 	  mbx.get(t);
-	  	        
+	   $display("[SCO]: Data recieved from the monitor Values are at wea=%0d , ena=%0d, enb=%0d, web=%0d ,wea=%0d, dina =%0d ,dinb =%0d ,adrra =%0d ,addrb =%0d time=%0t", t.i_ena, t.i_enb ,t.i_wea, t.i_web,t.i_wea,t.i_dina, t.i_dinb,t.i_addra,t.i_addrb,$time);
+	    $display ("[SCO]: Data values written to the ref_model is %0p",ref_model);
+ 
 	  // Port A update 
 	    if (t.i_ena)
 		begin
 		   if(t.i_wea)
-		     ref_model[t.i_addra] <=# (WRITE_LATENCY*TIME_PERIOD) t.i_dina;
+		   begin
+		     ref_model[t.i_addra] <=# (WRITE_LATENCY*TIME_PERIOD)t.i_dina;
+			 $display ("[SCO]: Data values written to the ref_model is %0p",ref_model);
+			 end
+
 
 	       else 
 	    	 temp_a_out           <= #(READ_LATENCY *TIME_PERIOD) ref_model[t.i_addra] ;
@@ -226,9 +232,12 @@ class scoreboard;
 	    if (t.i_enb)         // port B update
 	    begin
 		  if(t.i_web)
+		  begin
 		     ref_model[t.i_addrb] <= #(WRITE_LATENCY*TIME_PERIOD) t.i_dinb;
+			 $display ("[SCO]: Data values written to the ref_model is %0p",ref_model);
+	      end
 	      else 
-	        temp_b_out            <=  #(READ_LATENCY*TIME_PERIOD)  ref_model[t.i_addrb] ;
+	        temp_b_out            <= #(READ_LATENCY*TIME_PERIOD)  ref_model[t.i_addrb] ;
 	    end
   
  // ----------------------SCORE BOARD CAMPARISION BLOCK -----------------
@@ -319,7 +328,7 @@ endclass
 
 
 
-module tb_dual_clss_based_oops();
+module tb_dual_clss_based_oops_inter();
 
   evironment env;
 
@@ -364,7 +373,7 @@ module tb_dual_clss_based_oops();
 
 
   initial begin
-    #1000;
+    #300;
 	$finish();
 
   end
